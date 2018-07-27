@@ -61,7 +61,9 @@ public class Event extends Message {
 
     public static final String TYPE_DRIVER_CHANGED = "driverChanged";
 
-    public static final String TYPE_MEDIA_RECEIVED = "mediaReceived";
+    // Media files support
+    public static final String TYPE_IMAGE_RECEIVED = "imageReceived";
+    public static final String TYPE_AUDIO_RECEIVED = "audioReceived";
 
     private Date serverTime;
 

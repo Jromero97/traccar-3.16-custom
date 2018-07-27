@@ -30,7 +30,6 @@ import org.jboss.netty.channel.SimpleChannelHandler;
 import org.jboss.netty.handler.logging.LoggingHandler;
 import org.jboss.netty.handler.timeout.IdleStateHandler;
 import org.traccar.events.MotionEventHandler;
-import org.traccar.events.MediaReceivedEventHandler;
 import org.traccar.events.OverspeedEventHandler;
 import org.traccar.events.AlertEventHandler;
 import org.traccar.events.CommandResultEventHandler;
@@ -39,6 +38,8 @@ import org.traccar.events.DriverEventHandler;
 import org.traccar.events.FuelDropEventHandler;
 import org.traccar.events.GeofenceEventHandler;
 import org.traccar.events.MaintenanceEventHandler;
+import org.traccar.events.ImageReceivedEventHandler;
+import org.traccar.events.AudioReceivedEventHandler;
 import org.traccar.helper.Log;
 import org.traccar.processing.ComputedAttributesHandler;
 import org.traccar.processing.CopyAttributesHandler;
@@ -69,7 +70,8 @@ public abstract class BasePipelineFactory implements ChannelPipelineFactory {
     private IgnitionEventHandler ignitionEventHandler;
     private MaintenanceEventHandler maintenanceEventHandler;
     private DriverEventHandler driverEventHandler;
-    private MediaReceivedEventHandler mediaReceivedEventHandler;
+    private AudioReceivedEventHandler audioReceivedEventHandler;
+    private ImageReceivedEventHandler imageReceivedEventHandler;
 
     private static final class OpenChannelHandler extends SimpleChannelHandler {
 
@@ -180,7 +182,8 @@ public abstract class BasePipelineFactory implements ChannelPipelineFactory {
             ignitionEventHandler = new IgnitionEventHandler();
             maintenanceEventHandler = new MaintenanceEventHandler();
             driverEventHandler = new DriverEventHandler();
-            mediaReceivedEventHandler = new MediaReceivedEventHandler();
+            audioReceivedEventHandler = new AudioReceivedEventHandler();
+            imageReceivedEventHandler = new ImageReceivedEventHandler();
         }
     }
 
@@ -281,8 +284,12 @@ public abstract class BasePipelineFactory implements ChannelPipelineFactory {
             pipeline.addLast("DriverEventHandler", driverEventHandler);
         }
 
-        if (mediaReceivedEventHandler != null) {
-            pipeline.addLast("MediaReceivedEventHandler", mediaReceivedEventHandler);
+        if (audioReceivedEventHandler != null) {
+            pipeline.addLast("AudioReceivedEventHandler", audioReceivedEventHandler);
+        }
+
+        if(imageReceivedEventHandler != null) {
+            pipeline.addLast("ImageReceivedEventHandler", imageReceivedEventHandler);
         }
 
         pipeline.addLast("mainHandler", new MainEventHandler());
