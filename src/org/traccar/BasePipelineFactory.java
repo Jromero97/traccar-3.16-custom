@@ -288,7 +288,7 @@ public abstract class BasePipelineFactory implements ChannelPipelineFactory {
             pipeline.addLast("AudioReceivedEventHandler", audioReceivedEventHandler);
         }
 
-        if(imageReceivedEventHandler != null) {
+        if (imageReceivedEventHandler != null) {
             pipeline.addLast("ImageReceivedEventHandler", imageReceivedEventHandler);
         }
 
